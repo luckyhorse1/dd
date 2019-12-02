@@ -1,11 +1,14 @@
 package com.xiaoma.dd.controller;
 
+import com.xiaoma.dd.dto.UserLoginParam;
 import com.xiaoma.dd.mapper.UserMapper;
 import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.pojo.UserExample;
+import com.xiaoma.dd.api.CommonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,17 +22,15 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Object login() {
+    public CommonResult login(@RequestBody UserLoginParam userLoginParam) {
         UserExample example = new UserExample();
-        example.createCriteria().andPhoneEqualTo("17633907915");
+        example.createCriteria().andPhoneEqualTo(userLoginParam.getUsername()).andPasswordEqualTo(userLoginParam.getPassword());
         List<User> users = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(users)) {
-            User user = users.get(0);
-            System.out.println("haha");
-            return user.getName();
+        if (CollectionUtils.isEmpty(users)) {
+            return CommonResult.failed("登录失败");
         }
-        return "hello world";
+        return CommonResult.success("登录成功");
     }
 }

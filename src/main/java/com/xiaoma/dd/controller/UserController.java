@@ -2,6 +2,7 @@ package com.xiaoma.dd.controller;
 
 import com.xiaoma.dd.dto.UserLoginParam;
 import com.xiaoma.dd.component.CommonResult;
+import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,5 +40,15 @@ public class UserController {
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult getInfo(Principal principal) {
+        String phone = principal.getName();
+        User user = userService.getUserByPhone(phone);
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", user.getName());
+        return CommonResult.success(data);
     }
 }

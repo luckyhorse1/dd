@@ -7,14 +7,12 @@ import com.xiaoma.dd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/user")
@@ -40,6 +38,25 @@ public class UserController {
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
+    }
+
+    @RequestMapping(value = "/getPhoneCode", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult getPhoneCode(@RequestParam String phone) {
+        System.out.println(phone);
+        User user = userService.getUserByPhone(phone);
+        System.out.println(user);
+        if (user != null) return CommonResult.failed("该用户已注册");
+        return CommonResult.success(userService.generatePhoneCode(phone));
+    }
+
+    @RequestMapping(value = "/checkPhoneCode", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult checkPhoneCode(@RequestParam String phone, @RequestParam String code) {
+        if (userService.checkPhoneCode(phone, code)) {
+            return CommonResult.success("验证成功");
+        }
+        return CommonResult.validateFailed("验证失败");
     }
 
     @RequestMapping(value = "/info", method = RequestMethod.POST)

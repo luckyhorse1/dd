@@ -4,9 +4,11 @@ import com.xiaoma.dd.component.MyUserDetails;
 import com.xiaoma.dd.mapper.UserMapper;
 import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.pojo.UserExample;
+import com.xiaoma.dd.service.RedisService;
 import com.xiaoma.dd.service.UserService;
 import com.xiaoma.dd.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +32,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Value("${redis.key.prefix.authCode}")
+    private String REDIS_KEY_PREFIX_AUTH_CODE;
+
+    @Value("${authCode.expire.seconds}")
+    private Long AUTH_CODE_EXPIRE_SECONDS;
 
     @Override
     public String login(String phone, String password) {
@@ -55,6 +67,25 @@ public class UserServiceImpl implements UserService {
         if (userList != null && userList.size()>0)
             return userList.get(0);
         return null;
+    }
+
+    @Override
+    public String generatePhoneCode(String phone) {
+        StringBuilder code = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            code.append(random.nextInt(10));
+        }
+        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE+phone, code.toString());
+        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE+phone, AUTH_CODE_EXPIRE_SECONDS);
+        return code.toString();
+    }
+
+    @Override
+    public boolean checkPhoneCode(String phone, String code) {
+        String realCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE+phone);
+        if (realCode==null) return false;
+        return realCode.equals(code);
     }
 
     @Override

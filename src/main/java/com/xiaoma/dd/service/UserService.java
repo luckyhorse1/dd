@@ -10,4 +10,8 @@ public interface UserService {
     User getUserByPhone(String phone);
 
     UserDetails loadUserByUsername(String phone);
+
+    String generatePhoneCode(String phone);
+
+    boolean checkPhoneCode(String phone, String code);
 }

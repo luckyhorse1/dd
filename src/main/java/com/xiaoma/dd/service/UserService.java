@@ -5,6 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
+    User register(String phone, String password, String name);
+
     String login(String phone, String password);
 
     User getUserByPhone(String phone);

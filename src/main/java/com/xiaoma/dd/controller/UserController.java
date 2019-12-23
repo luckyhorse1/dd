@@ -2,6 +2,7 @@ package com.xiaoma.dd.controller;
 
 import com.xiaoma.dd.dto.UserLoginParam;
 import com.xiaoma.dd.component.CommonResult;
+import com.xiaoma.dd.dto.UserRegisterParam;
 import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,19 @@ public class UserController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult register(@RequestBody UserRegisterParam userRegisterParam) {
+        if (!userService.checkPhoneCode(userRegisterParam.getPhone(), userRegisterParam.getPhoneCode())) {
+            return CommonResult.validateFailed("验证码错误");
+        }
+        User user = userService.register(userRegisterParam.getPhone(), userRegisterParam.getPassword(), userRegisterParam.getName());
+        if (user == null) {
+            return CommonResult.failed("注册失败");
+        }
+        return CommonResult.success("注册成功");
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult login(@RequestBody UserLoginParam userLoginParam) {
@@ -44,7 +58,6 @@ public class UserController {
     public CommonResult getPhoneCode(@RequestParam String phone) {
         System.out.println(phone);
         User user = userService.getUserByPhone(phone);
-        System.out.println(user);
         if (user != null) return CommonResult.failed("该用户已注册");
         return CommonResult.success(userService.generatePhoneCode(phone));
     }

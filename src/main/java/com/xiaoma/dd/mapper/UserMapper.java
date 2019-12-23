@@ -4,9 +4,7 @@ import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.pojo.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface UserMapper {
     long countByExample(UserExample example);
 

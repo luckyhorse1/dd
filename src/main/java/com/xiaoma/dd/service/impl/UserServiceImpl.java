@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -41,6 +42,18 @@ public class UserServiceImpl implements UserService {
 
     @Value("${authCode.expire.seconds}")
     private Long AUTH_CODE_EXPIRE_SECONDS;
+
+
+    @Override
+    public User register(String phone, String password, String name) {
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setName(name);
+        user.setCreateTime(new Date());
+        userMapper.insertSelective(user);
+        return user;
+    }
 
     @Override
     public String login(String phone, String password) {

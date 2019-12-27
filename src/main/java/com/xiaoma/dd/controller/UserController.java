@@ -11,7 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -73,11 +76,13 @@ public class UserController {
 
     @RequestMapping(value = "/info", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult getInfo(Principal principal) {
+    public CommonResult getUserInfo(Principal principal) {
         String phone = principal.getName();
         User user = userService.getUserByPhone(phone);
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", user.getName());
+        List<String> data = new ArrayList<>();
+        data.add(user.getPhone());
+        data.add(user.getName());
+        data.add(new SimpleDateFormat("yyyy-MM-dd").format(user.getCreateTime()));
         return CommonResult.success(data);
     }
 }

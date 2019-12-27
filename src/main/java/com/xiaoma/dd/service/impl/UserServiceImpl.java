@@ -1,6 +1,7 @@
 package com.xiaoma.dd.service.impl;
 
 import com.xiaoma.dd.component.MyUserDetails;
+import com.xiaoma.dd.dto.UserInfoParam;
 import com.xiaoma.dd.mapper.UserMapper;
 import com.xiaoma.dd.pojo.User;
 import com.xiaoma.dd.pojo.UserExample;
@@ -99,6 +100,16 @@ public class UserServiceImpl implements UserService {
         String realCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE+phone);
         if (realCode==null) return false;
         return realCode.equals(code);
+    }
+
+    @Override
+    public boolean updateUserInfo(String phone, UserInfoParam param) {
+        User user = getUserByPhone(phone);
+        user.setName(param.getName());
+        UserExample example = new UserExample();
+        example.createCriteria().andPhoneEqualTo(phone);
+        userMapper.updateByExample(user, example);
+        return true;
     }
 
     @Override

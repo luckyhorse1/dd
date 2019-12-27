@@ -1,5 +1,6 @@
 package com.xiaoma.dd.controller;
 
+import com.xiaoma.dd.dto.UserInfoParam;
 import com.xiaoma.dd.dto.UserLoginParam;
 import com.xiaoma.dd.component.CommonResult;
 import com.xiaoma.dd.dto.UserRegisterParam;
@@ -84,5 +85,15 @@ public class UserController {
         data.add(user.getName());
         data.add(new SimpleDateFormat("yyyy-MM-dd").format(user.getCreateTime()));
         return CommonResult.success(data);
+    }
+
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateUserInfo(@RequestBody UserInfoParam userInfoParam, Principal principal) {
+        String phone = principal.getName();
+        if (userService.updateUserInfo(phone, userInfoParam)) {
+            return CommonResult.success("修改成功");
+        }
+        return CommonResult.failed("修改失败");
     }
 }

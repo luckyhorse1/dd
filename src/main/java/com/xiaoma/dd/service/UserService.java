@@ -1,5 +1,6 @@
 package com.xiaoma.dd.service;
 
+import com.xiaoma.dd.dto.UserInfoParam;
 import com.xiaoma.dd.pojo.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,4 +17,6 @@ public interface UserService {
     String generatePhoneCode(String phone);
 
     boolean checkPhoneCode(String phone, String code);
+
+    boolean updateUserInfo(String phone, UserInfoParam param);
 }

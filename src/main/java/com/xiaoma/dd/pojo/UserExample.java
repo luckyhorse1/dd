@@ -461,6 +461,196 @@ public class UserExample {
             addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
+
+        public Criteria andSexIsNull() {
+            addCriterion("sex is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexIsNotNull() {
+            addCriterion("sex is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexEqualTo(Integer value) {
+            addCriterion("sex =", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexNotEqualTo(Integer value) {
+            addCriterion("sex <>", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexGreaterThan(Integer value) {
+            addCriterion("sex >", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sex >=", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexLessThan(Integer value) {
+            addCriterion("sex <", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexLessThanOrEqualTo(Integer value) {
+            addCriterion("sex <=", value, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexIn(List<Integer> values) {
+            addCriterion("sex in", values, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexNotIn(List<Integer> values) {
+            addCriterion("sex not in", values, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexBetween(Integer value1, Integer value2) {
+            addCriterion("sex between", value1, value2, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andSexNotBetween(Integer value1, Integer value2) {
+            addCriterion("sex not between", value1, value2, "sex");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIsNull() {
+            addCriterion("age is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIsNotNull() {
+            addCriterion("age is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeEqualTo(Integer value) {
+            addCriterion("age =", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotEqualTo(Integer value) {
+            addCriterion("age <>", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeGreaterThan(Integer value) {
+            addCriterion("age >", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("age >=", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeLessThan(Integer value) {
+            addCriterion("age <", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeLessThanOrEqualTo(Integer value) {
+            addCriterion("age <=", value, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeIn(List<Integer> values) {
+            addCriterion("age in", values, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotIn(List<Integer> values) {
+            addCriterion("age not in", values, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeBetween(Integer value1, Integer value2) {
+            addCriterion("age between", value1, value2, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andAgeNotBetween(Integer value1, Integer value2) {
+            addCriterion("age not between", value1, value2, "age");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxIsNull() {
+            addCriterion("wx is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxIsNotNull() {
+            addCriterion("wx is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxEqualTo(String value) {
+            addCriterion("wx =", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNotEqualTo(String value) {
+            addCriterion("wx <>", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxGreaterThan(String value) {
+            addCriterion("wx >", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxGreaterThanOrEqualTo(String value) {
+            addCriterion("wx >=", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxLessThan(String value) {
+            addCriterion("wx <", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxLessThanOrEqualTo(String value) {
+            addCriterion("wx <=", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxLike(String value) {
+            addCriterion("wx like", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNotLike(String value) {
+            addCriterion("wx not like", value, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxIn(List<String> values) {
+            addCriterion("wx in", values, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNotIn(List<String> values) {
+            addCriterion("wx not in", values, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxBetween(String value1, String value2) {
+            addCriterion("wx between", value1, value2, "wx");
+            return (Criteria) this;
+        }
+
+        public Criteria andWxNotBetween(String value1, String value2) {
+            addCriterion("wx not between", value1, value2, "wx");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

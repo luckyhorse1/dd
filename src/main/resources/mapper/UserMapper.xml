@@ -7,6 +7,9 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="wx" jdbcType="VARCHAR" property="wx" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, phone, password, create_time, name
+    id, phone, password, create_time, name, sex, age, wx
   </sql>
   <select id="selectByExample" parameterType="com.xiaoma.dd.pojo.UserExample" resultMap="BaseResultMap">
     select
@@ -101,9 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.xiaoma.dd.pojo.User">
     insert into user (id, phone, password, 
-      create_time, name)
+      create_time, name, sex, 
+      age, wx)
     values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=DATE}, #{name,jdbcType=VARCHAR})
+      #{createTime,jdbcType=DATE}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{wx,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xiaoma.dd.pojo.User">
     insert into user
@@ -123,6 +128,15 @@
       <if test="name != null">
         name,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="wx != null">
+        wx,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +153,15 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="wx != null">
+        #{wx,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +189,15 @@
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.wx != null">
+        wx = #{record.wx,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +209,10 @@
       phone = #{record.phone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=DATE},
-      name = #{record.name,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      wx = #{record.wx,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +232,15 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="wx != null">
+        wx = #{wx,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +249,10 @@
     set phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=DATE},
-      name = #{name,jdbcType=VARCHAR}
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      wx = #{wx,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -13,6 +13,12 @@ public class User {
 
     private String name;
 
+    private Integer sex;
+
+    private Integer age;
+
+    private String wx;
+
     public Integer getId() {
         return id;
     }
@@ -51,5 +57,29 @@ public class User {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getWx() {
+        return wx;
+    }
+
+    public void setWx(String wx) {
+        this.wx = wx == null ? null : wx.trim();
     }
 }

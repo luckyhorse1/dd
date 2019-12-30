@@ -107,6 +107,9 @@ public class UserServiceImpl implements UserService {
     public boolean updateUserInfo(String phone, UserInfoParam param) {
         User user = getUserByPhone(phone);
         user.setName(param.getName());
+        user.setSex(param.getSex());
+        user.setAge(param.getAge());
+        user.setWx(param.getWx());
         UserExample example = new UserExample();
         example.createCriteria().andPhoneEqualTo(phone);
         userMapper.updateByExample(user, example);

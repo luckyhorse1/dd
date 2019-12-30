@@ -87,6 +87,9 @@ public class UserController {
         data.add(user.getPhone());
         data.add(user.getName());
         data.add(new SimpleDateFormat("yyyy-MM-dd").format(user.getCreateTime()));
+        data.add(user.getSex().toString());
+        data.add(user.getAge().toString());
+        data.add(user.getWx().toString());
         return CommonResult.success(data);
     }
 

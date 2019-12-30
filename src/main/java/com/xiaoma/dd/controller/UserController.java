@@ -96,4 +96,14 @@ public class UserController {
         }
         return CommonResult.failed("修改失败");
     }
+
+    @RequestMapping(value = "/updatePhone", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult updatePhone(@RequestParam String newPhone, Principal principal) {
+        String oldPhone = principal.getName();
+        if (userService.updatePhone(oldPhone, newPhone)) {
+            return CommonResult.success("修改成功");
+        }
+        return CommonResult.failed("修改失败");
+    }
 }

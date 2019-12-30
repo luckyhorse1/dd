@@ -113,6 +113,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updatePhone(String oldPhone, String newPhone) {
+        User user = getUserByPhone(oldPhone);
+        user.setPhone(newPhone);
+        userMapper.updateByPrimaryKey(user);
+        return true;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String phone) {
         User user = getUserByPhone(phone);
         if (user != null) {

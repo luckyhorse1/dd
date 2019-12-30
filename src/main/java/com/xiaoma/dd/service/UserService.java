@@ -19,4 +19,6 @@ public interface UserService {
     boolean checkPhoneCode(String phone, String code);
 
     boolean updateUserInfo(String phone, UserInfoParam param);
+
+    boolean updatePhone(String oldPhone, String newPhone);
 }

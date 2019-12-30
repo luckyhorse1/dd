@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 import java.util.List;
@@ -116,6 +117,14 @@ public class UserServiceImpl implements UserService {
     public boolean updatePhone(String oldPhone, String newPhone) {
         User user = getUserByPhone(oldPhone);
         user.setPhone(newPhone);
+        userMapper.updateByPrimaryKey(user);
+        return true;
+    }
+
+    @Override
+    public boolean updatePass(String phone, String newPass) {
+        User user = getUserByPhone(phone);
+        user.setPassword(new BCryptPasswordEncoder().encode(newPass));
         userMapper.updateByPrimaryKey(user);
         return true;
     }

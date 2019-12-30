@@ -59,8 +59,8 @@ public class UserController {
 
     @RequestMapping(value = "/getPhoneCode", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getPhoneCode(@RequestParam String phone) {
-        System.out.println(phone);
+    public CommonResult getPhoneCode(@RequestParam String phone, Principal principal) {
+        if (phone.equals("SELF")) return CommonResult.success(userService.generatePhoneCode(principal.getName()));
         User user = userService.getUserByPhone(phone);
         if (user != null) return CommonResult.failed("该用户已注册");
         return CommonResult.success(userService.generatePhoneCode(phone));
@@ -68,7 +68,10 @@ public class UserController {
 
     @RequestMapping(value = "/checkPhoneCode", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult checkPhoneCode(@RequestParam String phone, @RequestParam String code) {
+    public CommonResult checkPhoneCode(@RequestParam String phone, @RequestParam String code, Principal principal) {
+        if (phone.equals("SELF")) {
+            phone = principal.getName();
+        }
         if (userService.checkPhoneCode(phone, code)) {
             return CommonResult.success("验证成功");
         }
@@ -105,5 +108,15 @@ public class UserController {
             return CommonResult.success("修改成功");
         }
         return CommonResult.failed("修改失败");
+    }
+
+    @RequestMapping(value = "/updatePass", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult updatePass(@RequestParam String newPass, Principal principal) {
+        String phone = principal.getName();
+        if (userService.updatePass(phone, newPass)) {
+            return CommonResult.success("修改成功");
+        }
+        return CommonResult.success("修改失败");
     }
 }

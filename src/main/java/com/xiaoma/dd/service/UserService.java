@@ -21,4 +21,6 @@ public interface UserService {
     boolean updateUserInfo(String phone, UserInfoParam param);
 
     boolean updatePhone(String oldPhone, String newPhone);
+
+    boolean updatePass(String phone, String newPass);
 }

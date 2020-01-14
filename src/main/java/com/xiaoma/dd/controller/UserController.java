@@ -87,9 +87,13 @@ public class UserController {
         data.add(user.getPhone());
         data.add(user.getName());
         data.add(new SimpleDateFormat("yyyy-MM-dd").format(user.getCreateTime()));
-        data.add(user.getSex().toString());
-        data.add(user.getAge().toString());
-        data.add(user.getWx().toString());
+
+        if (user.getSex() == null) data.add("");
+        else data.add(user.getSex().toString());
+        if (user.getAge() == null) data.add("");
+        else data.add(user.getAge().toString());
+        if (user.getWx() == null) data.add("");
+        else data.add(user.getWx());
         return CommonResult.success(data);
     }
 
